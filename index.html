@@ -1,40 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Birthday Card</title>
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday!</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: linear-gradient(to right, #ffecd2, #fcb69f);
+      font-family: 'Comic Sans MS', cursive;
+    }
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
-      rel="stylesheet"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
+    .card {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      text-align: center;
+      z-index: 2;
+    }
 
-   
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body onload="startConfetti()">
-    <div class="card">
-      <div class="outside">
-        <div class="front">
-          <p>Happy Birthday</p>
-          <div class="cake">
-            <div class="top-layer"></div>
-            <div class="middle-layer"></div>
-            <div class="bottom-layer"></div>
-            <div class="candle"></div>
-          </div>
-        </div>
-        <div class="back"></div>
-      </div>
-      <div class="inside">
-        <p>Wishing you a very happy birthday filled with ❤️ Love and Happiness Have a long and prosperous life Akkaaa🥰😘🥰😘</p>
-        <h1>&#127873;</h1>
-      </div>
-    </div>
-  </body>
-  <script src="confetti.js"></script>
+    .card h1 {
+      font-size: 48px;
+      color: #ff4e50;
+      margin-bottom: 10px;
+    }
 
-  <script>
+    .card p {
+      font-size: 24px;
+      color: #333;
+    }
+
+    /* Confetti styles */
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: red;
+      animation: fall 5s linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    /* Balloon styles */
+    .balloon {
+      position: absolute;
+      bottom: -100px;
+      width: 40px;
+      height: 60px;
+      background-color: red;
+      border-radius: 50% 50% 45% 45%;
+      animation: float 10s ease-in-out infinite;
+      z-index: 1;
+      opacity: 0.8;
+    }
+
+    .balloon::before {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      width: 2px;
+      height: 20px;
+      background: #444;
+      transform: translateX(-50%);
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-120vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h1>🎉 Happy Birthday! 🎂</h1>
+  <p>Wishing you a day filled with love, laughter, and joy!</p>
+</div>
+
+<script>
+  // Confetti generator
+  for (let i = 0; i < 150; i++) {
+    const confetti = document.createElement("div");
+    confetti.classList.add("confetti");
+    confetti.style.left = Math.random() * 100 + "vw";
+    confetti.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    confetti.style.backgroundColor = ["#ff6b6b", "#6bcfff", "#ffd93b", "#9dff6b", "#ff6bff"][Math.floor(Math.random() * 5)];
+    confetti.style.width = confetti.style.height = Math.random() * 8 + 4 + "px";
+    confetti.style.opacity = Math.random();
+    confetti.style.animationDelay = Math.random() * 5 + "s";
+    document.body.appendChild(confetti);
+  }
+
+  // Balloon generator
+  function createBalloon() {
+    const balloon = document.createElement("div");
+    balloon.classList.add("balloon");
+    const colors = ["#ff6b6b", "#6bcfff", "#ffd93b", "#9dff6b", "#ff6bff", "#b28dff"];
+    balloon.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    balloon.style.left = Math.random() * 100 + "vw";
+    balloon.style.animationDuration = (Math.random() * 6 + 6) + "s";
+    balloon.style.animationDelay = Math.random() * 5 + "s";
+    balloon.style.transform = `scale(${Math.random() * 0.5 + 0.8})`;
+    document.body.appendChild(balloon);
+
+    // Remove balloon after animation
+    setTimeout(() => {
+      balloon.remove();
+    }, 12000);
+  }
+
+  // Generate balloons continuously
+  setInterval(createBalloon, 800);
 </script>
+
+</body>
 </html>
